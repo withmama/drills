@@ -10,7 +10,7 @@ if(isset($_GET['drillname']))
 {
   
   $filename = $_GET['drillname'];
-  $filename = preg_replace("/[^a-z]+/", "", $filename) . '.txt';
+  $filename = 'data/' . preg_replace("/[^a-z]+/", "", $filename) . '.txt';
 
 
   if(file_exists($filename))

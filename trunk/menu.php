@@ -1,5 +1,5 @@
 <?php
-if ($handle = opendir('.')) {
+if ($handle = opendir('data')) {
   while (false !== ($file = readdir($handle)))
   {
     if ($file != "." && $file != ".." && substr($file,-4)=='.txt')
@@ -9,9 +9,10 @@ if ($handle = opendir('.')) {
   }
   closedir($handle);
 }
+sort($list);
 foreach($list as $item)
 {
-  $items_html []= '<a href="edit.php?drillname='.$item.'">'.$item.'</a>';
+  $items_html []= '<a class="' . ($_GET['drillname']==$item?'active':'') . '" href="edit.php?drillname='.$item.'">'.$item.'</a>';
 }
 echo '<div>' . implode(' | ', $items_html) . '</div>';
 ?>

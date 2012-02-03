@@ -1,4 +1,7 @@
 div#playfield
 {
-	background-color: #aaffaa;
+  position:absolute;
+  top:30px;
+  left:200px;
+  background-color: #aaffaa;
 }

@@ -97,10 +97,13 @@ function Hrac()
         then - now,
         'linear',
         function(){
-          console.log(hrac);
           hrac.animate(nextCycle,nextI);
         }        
       );
+    }
+    else
+    {
+      bindStart();
     }
 
     return this;
@@ -213,11 +216,16 @@ function Field()
 	}
 }
 
+function bindStart()
+{
+  $('#pause-button').html('START').unbind('click').click(function(){
+    drill = new Drill($('[name=popis]').val());
+    drill.parse();
+    drill.run();
+  });
+}
+
 $(document).ready(function(){
-    $('#pause-button').click(function(){
-      drill = new Drill($('[name=popis]').val());
-      drill.parse();
-      drill.run();
-    });
+  bindStart();
 });
 

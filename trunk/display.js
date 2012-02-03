@@ -21,6 +21,7 @@ function Waypoint(x,y,t)
 function Hrac()
 {
   this.waypoints = [];
+  var hrac = this;
 
   this.addWaypoint = function(x,y,t){
     this.waypoints.push(new Waypoint(x,y,t));
@@ -64,29 +65,44 @@ function Hrac()
     this.getElement().css('left',this.getWP(0).x);
     this.getElement().css('top',this.getWP(0).y);
   }
-  
-  this.animate = function(){
+
+  this.pause = function(){
     var elem = this.getElement();
-    var cycle = 0;
-    while(cycle*this.interval < this.limit)
-    {
-      for(var i in this.waypoints)
-      {
-        if(i>0)
-        {
-          if(cycle*this.interval + this.waypoints[i].t > this.limit)
-          {
-            if(this.id==7)console.log(cycle, cycle*this.interval, cycle*this.interval + this.waypoints[i].t, this.limit);
-            return this;
-          }
-          elem = elem.animate(
-            {left:this.waypoints[i].x,top:this.waypoints[i].y},
-            this.waypoints[i].t - this.waypoints[i-1].t
-            );
-        }
-      }
-      cycle ++;
+    elem.pause();
+  }
+
+  this.resume = function(){
+    var elem = this.getElement();
+    elem.resume();
+  }
+  
+  this.animate = function(cycle,i){
+    var elem = this.getElement();
+    var nextI = (i+1)%this.waypoints.length;
+    var nextCycle = cycle;
+    if(nextI == 0)nextCycle++;
+    var now = cycle * this.interval + this.waypoints[i].t;
+    var then = nextCycle * this.interval + this.waypoints[nextI].t;
+    if(now>=then){
+      console.log('Fatal: animation time now='+now+', then='+then);
+      console.log('Cycle='+cycle+', i='+i);
+      console.log('Next cycle='+nextCycle+', nextI='+nextI);
+      console.log(this);
     }
+
+    if(nextCycle*this.interval + this.waypoints[nextI].t <= this.limit)
+    {
+      elem = elem.animate(
+        {left:this.waypoints[nextI].x,top:this.waypoints[nextI].y},
+        then - now,
+        'linear',
+        function(){
+          console.log(hrac);
+          hrac.animate(nextCycle,nextI);
+        }        
+      );
+    }
+
     return this;
   }
 }
@@ -96,6 +112,8 @@ function Drill(popis)
   this.popis = popis;
   this.hraci = [];
   this.field = new Field();
+  this.paused = false;
+  var drill = this;
   
   this.parse = function(){
     hraci = this.popis.split("\n\n");
@@ -121,14 +139,36 @@ function Drill(popis)
             }
           }
         }
-        hrac.addLastWP();
+        //hrac.addLastWP();
         this.hraci.push(hrac);
       }
     }
   }
 
+  this.pause = function(){
+    for(var i in this.hraci)
+    {
+      this.hraci[i].pause();
+    }
+    this.paused = true;
+    $('#pause-button').html('PLAY').unbind('click').click(function(){
+      drill.resume();
+    });
+  }
+
+  this.resume = function(){
+    for(var i in this.hraci)
+    {
+      this.hraci[i].resume();
+    }
+    this.paused = false;
+    $('#pause-button').html('PAUSE').unbind('click').click(function(){
+      drill.pause();
+    });
+  }
+
   this.run = function(){
-  	$('#playfield').width(this.field.getWidth()).height(this.field.getHeight());
+    $('#playfield').width(this.field.getWidth()).height(this.field.getHeight());
     var html = '';
     for(var i in this.hraci)
     {
@@ -141,9 +181,12 @@ function Drill(popis)
     }
     for(var i in this.hraci)
     {
-      this.hraci[i].animate();
+      this.hraci[i].animate(0,0);
     }
-    
+    $('#pause-button').html('PAUSE');
+    $('#pause-button').unbind('click').click(function(){
+      drill.pause();
+    });
   }
 }
 
@@ -170,10 +213,11 @@ function Field()
 	}
 }
 
-function runCode()
-{
-  drill = new Drill($('[name=popis]').val());
-  drill.parse();
-  drill.run();
-}
+$(document).ready(function(){
+    $('#pause-button').click(function(){
+      drill = new Drill($('[name=popis]').val());
+      drill.parse();
+      drill.run();
+    });
+});
 

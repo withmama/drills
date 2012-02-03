@@ -5,3 +5,8 @@ div#playfield
   left:200px;
   background-color: #aaffaa;
 }
+
+a.active
+{
+  font-weight:bold;
+}

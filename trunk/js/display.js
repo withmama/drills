@@ -231,6 +231,7 @@ function bindStart()
 }
 
 $(document).ready(function(){
+  $('#slider').slider();
   bindStart();
   drill = new Drill($('[name=popis]').val());
   drill.setup();

@@ -10,3 +10,8 @@ a.active
 {
   font-weight:bold;
 }
+
+div.slider
+{
+  width:160px;
+}

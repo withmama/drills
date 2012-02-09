@@ -12,7 +12,7 @@ if ($handle = opendir('data')) {
 sort($list);
 foreach($list as $item)
 {
-  $items_html []= '<a class="' . ($_GET['drillname']==$item?'active':'') . '" href="edit.php?drillname='.$item.'">'.$item.'</a>';
+  $items_html []= '<a class="' . ($_GET['drillname']==$item?'active':'') . '" href="'.$item.'/">'.$item.'</a>';
 }
 echo '<div>' . implode(' | ', $items_html) . '</div>';
 ?>

@@ -1,7 +1,15 @@
 <script type="text/javascript" src="js/jquery-1.7.1.js"></script>
 <script type="text/javascript" src="js/jquery.pause.js"></script>
+<script type="text/javascript" src="js/jquery.ui.core.js"></script>
+<script type="text/javascript" src="js/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="js/jquery.ui.mouse.js"></script>
+<script type="text/javascript" src="js/jquery.ui.slider.js"></script>
 <script type="text/javascript" src="js/display.js"></script>
 <link type="text/css" rel="stylesheet" href="style.css" />
+<link type="text/css" rel="stylesheet" href="js/themes/smoothness/jquery.ui.all.css" />
+<link type="text/css" rel="stylesheet" href="js/themes/smoothness/jquery.ui.base.css" />
+<link type="text/css" rel="stylesheet" href="js/themes/smoothness/jquery.ui.core.css" />
+<link type="text/css" rel="stylesheet" href="js/themes/smoothness/jquery.ui.slider.css" />
 <body>
 <?php require_once('menu.php'); ?>
 <textarea name="popis" rows="20">
@@ -19,5 +27,5 @@ if(isset($_GET['drillname']))
 ?>
 </textarea>
 <div id="playfield"></div>
-<div class="control-panel"><button id="pause-button">PLAY</button></div>
+<div class="control-panel"><button id="pause-button">PLAY</button><div id="slider" class="slider"></div></div>
 </body>

@@ -1,4 +1,4 @@
-div#playfield
+#playfield
 {
   position:absolute;
   top:30px;
@@ -14,4 +14,28 @@ a.active
 div.slider
 {
   width:160px;
+}
+
+button
+{
+  cursor:pointer;
+}
+
+#wpedit
+{
+  width:200px;
+}
+
+.color-picker
+{
+  width:100px;
+}
+
+.x,.y
+{
+  width:30px;
+}
+.t
+{
+  width:40px;
 }

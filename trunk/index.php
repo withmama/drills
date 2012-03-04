@@ -4,7 +4,12 @@
 <script type="text/javascript" src="js/jquery.ui.widget.js"></script>
 <script type="text/javascript" src="js/jquery.ui.mouse.js"></script>
 <script type="text/javascript" src="js/jquery.ui.slider.js"></script>
+<script type="text/javascript" src="js/Waypoint.js"></script>
+<script type="text/javascript" src="js/Hrac.js"></script>
+<script type="text/javascript" src="js/Drill.js"></script>
+<script type="text/javascript" src="js/Field.js"></script>
 <script type="text/javascript" src="js/display.js"></script>
+<script type="text/javascript" src="js/edit.js"></script>
 <link type="text/css" rel="stylesheet" href="style.css" />
 <link type="text/css" rel="stylesheet" href="js/themes/smoothness/jquery.ui.all.css" />
 <link type="text/css" rel="stylesheet" href="js/themes/smoothness/jquery.ui.base.css" />
@@ -28,4 +33,6 @@ if(isset($_GET['drillname']))
 </textarea>
 <div id="playfield"></div>
 <div class="control-panel"><button id="pause-button">PLAY</button><div id="slider" class="slider"></div></div>
+<button id="toggle-edit">start editing</button>
+<div id="wpedit"></div>
 </body>
